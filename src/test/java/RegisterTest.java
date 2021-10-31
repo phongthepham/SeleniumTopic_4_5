@@ -4,10 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 //import static org.testng.Assert.assertEquals;
 
@@ -31,19 +28,19 @@ public class RegisterTest {
     By byLblDienThoaiError = By.cssSelector("#txtPhone-error");
 
     @BeforeClass
-    public void beforeClass() {
+    public void BeforeClass() {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
     }
 
-    @BeforeTest
-    public void beforeTest()
+    @BeforeMethod
+    public void BeforeMethod()
     {
         webDriver.get("https://alada.vn/tai-khoan/dang-ky.html");
     }
 
     @Test
-    public void registerWithEmptyDataTest() {
+    public void TC_01_RegisterWithEmptyDataTest() {
         WebElement btnDangKy = webDriver.findElement(byBtnDangKy);
         btnDangKy.click();
 
@@ -53,8 +50,8 @@ public class RegisterTest {
         WebElement lblEmailError = webDriver.findElement(byLblEmailError);
         Assert.assertEquals(lblEmailError.getText(), "Vui lòng nhập email");
 
-        WebElement lblCEmailError = webDriver.findElement(byLblNhapLaiEmailError);
-        Assert.assertEquals(lblCEmailError.getText(), "Vui lòng nhập lại địa chỉ email");
+        WebElement lblNhapLaiEmailError = webDriver.findElement(byLblNhapLaiEmailError);
+        Assert.assertEquals(lblNhapLaiEmailError.getText(), "Vui lòng nhập lại địa chỉ email");
 
         WebElement lblMatKhauError = webDriver.findElement(byLblMatKhauError);
         Assert.assertEquals(lblMatKhauError.getText(), "Vui lòng nhập mật khẩu");
@@ -67,18 +64,37 @@ public class RegisterTest {
     }
 
     @Test
-    public void registerWithInvalidEmailTest(){
+    public void TC_02_RegisterWithInvalidEmailTest(){
         WebElement txtHoVaTen = webDriver.findElement(byTxtHoVaTen);
         txtHoVaTen.sendKeys("Phong Pham");
 
         WebElement txtEmail = webDriver.findElement(byTxtEmail);
         txtEmail.sendKeys("123@456@789");
 
+        WebElement txtNhapLaiEmail = webDriver.findElement(byTxtNhapLaiEmail);
+        txtNhapLaiEmail.sendKeys("123@456@789");
 
+        WebElement txtMatKhau = webDriver.findElement(byTxtMatKhau);
+        txtMatKhau.sendKeys("12345678");
+
+        WebElement txtNhapLaiMatKhau = webDriver.findElement(byTxtNhapLaiMatKhau);
+        txtNhapLaiMatKhau.sendKeys("12345678");
+
+        WebElement txtDienThoai = webDriver.findElement(byTxtDienThoai);
+        txtDienThoai.sendKeys("0983111111");
+
+        WebElement btnDangKy = webDriver.findElement(byBtnDangKy);
+        btnDangKy.click();
+
+        WebElement lblEmailError = webDriver.findElement(byLblEmailError);
+        Assert.assertEquals(lblEmailError.getText(), "Vui lòng nhập email hợp lệ");
+
+        WebElement lblNhapLaiEmailError = webDriver.findElement(byLblNhapLaiEmailError);
+        Assert.assertEquals(lblNhapLaiEmailError.getText(), "Email nhập lại không đúng");
     }
 
     @AfterClass
-    public void afterClass() {
+    public void AfterClass() {
         webDriver.quit();
     }
 }

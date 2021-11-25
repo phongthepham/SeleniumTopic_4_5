@@ -8,13 +8,10 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-//import static org.testng.Assert.assertEquals;
-
 public class RegisterTest {
     WebDriver driver;
 
     By byBtnDangKy = By.cssSelector("button[type='submit']");
-
     By byTxtHoVaTen = By.xpath("//input[@id='txtFirstname']");
     By byTxtEmail = By.xpath("//input[@id='txtEmail']");
     By byTxtNhapLaiEmail = By.xpath("//input[@id='txtCEmail']");
@@ -32,8 +29,8 @@ public class RegisterTest {
     @BeforeClass
     public void BeforeClass() {
         WebDriverManager.chromedriver().setup();    // use WebDriverManager from github
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));  // use this in Selenium 4.0
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));  // use this in Selenium 4.0
     }
 
     @BeforeMethod

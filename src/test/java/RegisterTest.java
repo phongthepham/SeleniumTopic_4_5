@@ -12,6 +12,7 @@ public class RegisterTest {
     WebDriver driver;
 
     By byBtnDangKy = By.cssSelector("button[type='submit']");
+
     By byTxtHoVaTen = By.xpath("//input[@id='txtFirstname']");
     By byTxtEmail = By.xpath("//input[@id='txtEmail']");
     By byTxtNhapLaiEmail = By.xpath("//input[@id='txtCEmail']");
